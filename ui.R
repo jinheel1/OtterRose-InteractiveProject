@@ -11,7 +11,7 @@ dashboardPage(skin = "black",
     #---Naming the tabs
     dashboardSidebar(width="200px",
                      sidebarMenu(
-                       menuItem("Graph 1", tabName = "number1", icon = icon("th")),
+                       menuItem("Total Honey Production", tabName = "number1", icon = icon("th")),
                        menuItem("Graph 2", tabName = "number2", icon = icon("th")),
                        menuItem("Graph 3", tabName = "number3", icon = icon("th")),
                        menuItem("Graph 4", tabName = "number4", icon = icon("th")),

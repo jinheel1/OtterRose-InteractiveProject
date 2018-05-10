@@ -35,7 +35,7 @@ function(input, output) {
       geom_line(size = 2) +
       #---Adjusting label orientation
       theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-      labs(title = paste("Total Production of Honey for US States"),
+      labs(title = paste("Total Honey Production for US States"),
            x = "Year", y = "Amount (in 100,000 lbs)",
            color = "State(s)")
     
