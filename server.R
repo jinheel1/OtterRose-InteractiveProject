@@ -6,6 +6,10 @@ library(plotly)
 
 honey_data <- read_csv("honeyproduction.csv")
 
+#---DATA PARSING HAPPENS HERE IF YOU WANT IT TO AFFECT EVERY GRAPH---
+
+#---OR YOU CAN PARSE THE DATA WHILE RENDERING THE PLOT IF YOU WANT IT TO AFFECT A SINGLE GRAPH---
+
 function(input, output) {
   
   #---Graph 1 (Jinhee Lee)
