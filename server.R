@@ -3,6 +3,7 @@ library(shinydashboard)
 library(ggplot2)
 library(tidyverse)
 library(plotly)
+library(shinythemes)
 
 honey_data <- read_csv("honeyproduction.csv")
 
@@ -34,7 +35,7 @@ function(input, output) {
                       aes(x = factor(year), y = totalprod / 100000, group = state, color = state)) +
       geom_line(size = 2) +
       #---Adjusting label orientation
-      theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+      theme(axis.text.x = element_text(angle = 45)) +
       labs(title = paste("Total Honey Production for US States"),
            x = "Year", y = "Amount (in 100,000 lbs)",
            color = "State(s)")

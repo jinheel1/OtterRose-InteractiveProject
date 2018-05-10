@@ -3,6 +3,10 @@ library(shinydashboard)
 library(ggplot2)
 library(tidyverse)
 library(plotly)
+library(shinythemes)
+
+shinythemes::themeSelector()
+#^Don't forget to select a theme later!!!
 
 dashboardPage(skin = "black",
               
