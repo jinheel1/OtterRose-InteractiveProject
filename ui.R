@@ -3,10 +3,7 @@ library(shinydashboard)
 library(ggplot2)
 library(tidyverse)
 library(plotly)
-library(shinythemes)
-
-shinythemes::themeSelector()
-#^Don't forget to select a theme later!!!
+library(ggmap)
 
 dashboardPage(skin = "black",
               
@@ -58,6 +55,14 @@ dashboardPage(skin = "black",
                 fluidRow(
                   box(
                     #---STUFF GOES HERE---
+                    plotlyOutput("plotlyC"),
+                    selectInput(inputId = "state", label = "State",
+                                choices = c("AL", "AZ", "AR", "CA", "CO", "FL", "GA", "HI", "ID", "IL",
+                                            "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MI", "MN", "MS",
+                                            "MO", "MT", "NE", "NV", "NJ", "NM", "NY", "NC", "ND", "OH",
+                                            "OK", "OR", "PA", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
+                                            "WV", "WI", "WY", "SC"),
+                                multiple = T, selected = "AL")
                     )
                   )
                 ),
@@ -66,7 +71,11 @@ dashboardPage(skin = "black",
         tabItem(tabName = "number4",
                 fluidRow(
                   box(
+                    
                     #---STUFF GOES HERE---
+                    plotOutput("plotD", height = 800),
+                    width = 12
+                    
                     )
                   )
                 ),
@@ -76,6 +85,8 @@ dashboardPage(skin = "black",
                 fluidRow(
                   box(
                     #---STUFF GOES HERE---
+                    plotOutput("plotE", height = 800),
+                    width = 12
                     )
                   )
                 ),
