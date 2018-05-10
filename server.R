@@ -31,12 +31,12 @@ function(input, output) {
     honey_data_state <- honey_data[which(honey_data$state == input$state),]
     
     plotly1 <- ggplot(subset(honey_data, state%in%input$state), 
-                      aes(x = factor(year), y = totalprod, group = state, color = state)) +
+                      aes(x = factor(year), y = totalprod / 100000, group = state, color = state)) +
       geom_line(size = 2) +
       #---Adjusting label orientation
       theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
       labs(title = paste("Total Production of Honey for US States"),
-           x = "Year", y = "Amount (lbs)",
+           x = "Year", y = "Amount (in 100,000 lbs)",
            color = "State(s)")
     
     ggplotly(plotly1)
