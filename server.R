@@ -3,7 +3,7 @@ library(shinydashboard)
 library(ggplot2)
 library(tidyverse)
 library(plotly)
-library(shinythemes)
+library(forcats)
 
 honey_data <- read_csv("honeyproduction.csv")
 
@@ -35,7 +35,7 @@ function(input, output) {
                       aes(x = factor(year), y = totalprod / 100000, group = state, color = state)) +
       geom_line(size = 2) +
       #---Adjusting label orientation
-      theme(axis.text.x = element_text(angle = 45)) +
+      theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
       labs(title = paste("Total Honey Production for US States"),
            x = "Year", y = "Amount (in 100,000 lbs)",
            color = "State(s)")
@@ -58,11 +58,6 @@ function(input, output) {
   # })
   
   
-  
-  
-  
-  
-  
   #---Graph 2 (Jinhee Lee)
   
   output$plotB <- renderPlot({
@@ -72,18 +67,32 @@ function(input, output) {
   })
   
   
-  
-  
-  
   #---Graph 3
   
+  output$plotlyC <- renderPlotly({
+    
+    honey_data_state <- honey_data[which(honey_data$state == input$state),]
+    
+    plotlyC <- ggplot(data = subset(honey_data, state%in%input$state), 
+                      aes(y = priceperlb, x = totalprod, group = state)) + 
+      geom_point()
+    ggplotly(plotlyC)
+    
+  })
   
   
   
   
   #---Graph 4
   
-  
+  output$plotD <- renderPlot({
+
+    plotD <- ggplot(honey_data, aes(x = state, y = totalprod)) +
+      geom_freqpoly(stat = "identity", aes(x = fct_reorder(state,totalprod, mean))) +
+      coord_flip() +
+      theme_minimal()
+    return(plotD)
+  })
   
   
   
