@@ -6,7 +6,7 @@ library(plotly)
 
 dashboardPage(skin = "black",
               
-    dashboardHeader(title="Honey Production in the USA (1998-2012)"),
+    dashboardHeader(title = "Otter Rose"),
     
     #---Naming the tabs
     dashboardSidebar(width="200px",
