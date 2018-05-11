@@ -15,10 +15,10 @@ dashboardPage(skin = "yellow",
                        menuItem("Introduction", tabName = "intro", icon = icon("th")),
                        menuItem("Total Honey Production", tabName = "number1", icon = icon("th")),
                        menuItem("Total Honey Sold", tabName = "number2", icon = icon("th")),
-                       menuItem("Graph 4", tabName = "number4", icon = icon("th")),
-                       menuItem("Graph 5", tabName = "number5", icon = icon("th")),
-                       menuItem("Graph 6", tabName = "number6", icon = icon("th")),
-                       menuItem("Graph 7", tabName = "number7", icon = icon("th"))
+                       menuItem("Graph 3", tabName = "number4", icon = icon("th")),
+                       menuItem("Graph 4", tabName = "number5", icon = icon("th")),
+                       menuItem("Graph 5", tabName = "number6", icon = icon("th")),
+                       menuItem("Graph 6", tabName = "number7", icon = icon("th"))
                        )
                      ),
     
@@ -31,7 +31,7 @@ dashboardPage(skin = "yellow",
                   box(
                     width = 12,
                     h1("Introduction"),
-                    p("The dataset can be found in [this link from Kaggle](https://www.kaggle.com/jessicali9530/honey-production). 
+                    p("The dataset can be found in this link from Kaggle: https://www.kaggle.com/jessicali9530/honey-production. 
                       This dataset examines honey production in the USA from 1998-2012 and was collected by the National Agricultural Statistics Service (NASS), in response to global concern over the rapid decline in the honeybee population. 
                       It features 8 variables with 626 observations. Each case examines statistics like total production of honey (in lbs), price per pound, and arithmetic combinations of its variables for 1 of 43 states in a single year."),
                     background = "purple"
@@ -112,13 +112,13 @@ dashboardPage(skin = "yellow",
                   box(
                     background = "purple",
                     plotlyOutput("plotly6"), width = 12,
-                    selectInput(inputId = "state2", label = "state2",
+                    selectInput(inputId = "state6", label = "Click & Choose States to Compare. Delete to Erase Lines.",
                                 choices = c("AL", "AZ", "AR", "CA", "CO", "FL", "GA", "HI", "ID", "IL",
                                             "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MI", "MN", "MS",
                                             "MO", "MT", "NE", "NV", "NJ", "NM", "NY", "NC", "ND", "OH",
                                             "OK", "OR", "PA", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
                                             "WV", "WI", "WY", "SC"),
-                                multiple = T, selected = "AL")
+                                multiple = T, selected = c("AL", "AZ"))
                   )
                   )
                 ),
@@ -128,7 +128,7 @@ dashboardPage(skin = "yellow",
                   box(
                     background = "purple",
                     plotlyOutput("plotly7"), width = 12,
-                    selectInput(inputId = "state3", label = "state3",
+                    selectInput(inputId = "state7", label = "Click & Choose States to Compare. Delete to Erase Steam.",
                                 choices = c("AL", "AZ", "AR", "CA", "CO", "FL", "GA", "HI", "ID", "IL",
                                             "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MI", "MN", "MS",
                                             "MO", "MT", "NE", "NV", "NJ", "NM", "NY", "NC", "ND", "OH",

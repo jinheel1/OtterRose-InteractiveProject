@@ -111,7 +111,7 @@ function(input, output) {
 
   
   
-  # #---Graph 3
+  # #---SCRAPPED
   # 
   # output$plotlyC <- renderPlotly({
   #   
@@ -124,7 +124,7 @@ function(input, output) {
   # })
   
   
-  #---Graph 4
+  #---Graph 3
   
   output$plotlyD <- renderPlotly({
   
@@ -132,15 +132,19 @@ function(input, output) {
   
   
   
-  plotlyD <- ggplot(data = honey_data, aes_string(x = 'state',y = input$variable)) + 
-      geom_bar(stat = "identity") +
-      theme_minimal()
+  plotlyD <- ggplot(data = honey_data, aes_string(x = 'state', y = input$variable, fill = 'state')) + 
+    geom_bar(stat = "identity") +
+    theme(legend.position="none") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
     
-    ggplotly(plotlyD)
+    ggplotly(plotlyD) %>%
+      layout(
+        margin = list(b = 50, l = 50) # to fully display the x and y axis labels
+      )
     
   })
   
-  #---Graph 5 
+  #---Graph 4
   
   output$plotE <- renderPlot({
     
@@ -163,14 +167,14 @@ function(input, output) {
     return (plotE)
   })
 
-  #---Graph 6 
+  #---Graph 5
   
 
 output$plotly6 <- renderPlotly({
   
-  honey_data_state <- honey_data[which(honey_data$state == input$state2),]
+  honey_data_state <- honey_data[which(honey_data$state == input$state6),]
   
-  plotly6 <- ggplot(subset(honey_data, state%in%input$state2), 
+  plotly6 <- ggplot(subset(honey_data, state%in%input$state6), 
                     aes(x = factor(year), y = priceperlb, group = state, color = state)) +
     geom_line(size = 1) +
     #---Adjusting label orientation
@@ -186,13 +190,13 @@ output$plotly6 <- renderPlotly({
 
   
 
-#---Graph 7
+#---Graph 6
 
 output$plotly7 <- renderPlotly({
   
-  honey_data_state <- honey_data[which(honey_data$state == input$state3),]
+  honey_data_state <- honey_data[which(honey_data$state == input$state7),]
   
-  honey_data_selection <- subset(honey_data, state%in%input$state3)
+  honey_data_selection <- subset(honey_data, state%in%input$state7)
   
   # base plot
   plotly7 = ggplot(honey_data_selection, aes(x = year, y = priceperlb, fill = state)) +
@@ -208,6 +212,8 @@ output$plotly7 <- renderPlotly({
   
 })
 
+
+#--- SCRAPPED
 
 # output$plotly8 <- renderPlotly({
 #   
