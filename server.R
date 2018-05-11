@@ -67,14 +67,17 @@ function(input, output) {
     
     plotly1 <- ggplot(subset(honey_data, state%in%input$state), 
                       aes(x = factor(year), y = totalprod / 100000, group = state, color = state)) +
-      geom_line(size = 1) +
+      geom_line(size = .5) +
       #---Adjusting label orientation
       theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
       labs(title = paste("Total Honey Production for US States"),
            x = "Year", y = "Amount (in 100,000 lbs)",
-           color = "State(s)")
+           color = "State(s)") 
     
-    ggplotly(plotly1)
+    ggplotly(plotly1) %>%
+      layout(
+        margin = list(b = 50, l = 50) # to fully display the x and y axis labels
+      )
     
   })
   
@@ -98,8 +101,7 @@ function(input, output) {
       geom_bar(stat = "identity") +
       #---Adjusting label orientation
       #theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-      labs(title = paste("Amount of Honey Sold"),
-           subtitle = "*By Dec. 15th",
+      labs(title = paste("Amount of Honey Sold by Dec. 15th"),
            x = "State(s)", y = "Amount (in 100,000 lbs)",
            fill = "State(s)")
     
@@ -109,17 +111,17 @@ function(input, output) {
 
   
   
-  #---Graph 3
-  
-  output$plotlyC <- renderPlotly({
-    
-    honey_data_state <- honey_data[which(honey_data$state == input$state),]
-    
-    plotlyC <- ggplot(data = subset(honey_data, state%in%input$state), 
-                      aes(y = priceperlb, x = totalprod, group = state)) + geom_point()
-    ggplotly(plotlyC)
-    
-  })
+  # #---Graph 3
+  # 
+  # output$plotlyC <- renderPlotly({
+  #   
+  #   honey_data_state <- honey_data[which(honey_data$state == input$state),]
+  #   
+  #   plotlyC <- ggplot(data = subset(honey_data, state%in%input$state), 
+  #                     aes(y = priceperlb, x = totalprod, group = state)) + geom_point()
+  #   ggplotly(plotlyC)
+  #   
+  # })
   
   
   #---Graph 4
@@ -207,16 +209,16 @@ output$plotly7 <- renderPlotly({
 })
 
 
-output$plotly8 <- renderPlotly({
-  
-  # base plot
-  plotly8 = ggplot(honey_data, aes(x = totalprod, y = priceperlb)) + geom_point() 
-
-  ggMarginal(plotly8, type = "histogram")
-  ggplotly(plotly8)
-  
-  
-})
+# output$plotly8 <- renderPlotly({
+#   
+#   # base plot
+#   plotly8 = ggplot(honey_data, aes(x = totalprod, y = priceperlb)) + geom_point() 
+# 
+#   ggMarginal(plotly8, type = "histogram")
+#   ggplotly(plotly8)
+#   
+#   
+# })
 
 }
 
