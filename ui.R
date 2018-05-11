@@ -78,7 +78,7 @@ dashboardPage(skin = "yellow",
                 ),
         
         
-        #---UI Content of Graph 4
+        #---UI Content of Graph 3
         tabItem(tabName = "number4",
                 fluidRow(
                   box(
@@ -99,19 +99,26 @@ dashboardPage(skin = "yellow",
                   )
                 ),
         
-        #---UI Content of Graph 5
+        #---UI Content of Graph 4
         tabItem(tabName = "number5",
                 fluidRow(
                   box(
                     #---STUFF GOES HERE---
-                    background = "purple",
                     plotOutput("plotE"),
+                    radioButtons(inputId = "mean_var", label = "choose mean_var", 
+                                 choices = c("mean_totalprod.x",
+                                             "mean_priceperlb.x",
+                                             "mean_numcol.x",
+                                             "mean_yieldpercol.x",
+                                             "mean_stocks.x",
+                                             "mean_priceperlb.x",
+                                             "mean_prodvalue.x")),
                     width = 12
-                    )
                   )
-                ),
+                )
+        ),
         
-        #---UI Content of Graph 6
+        #---UI Content of Graph 5
         tabItem(tabName = "number6",
                 fluidRow(
                   box(
@@ -127,7 +134,7 @@ dashboardPage(skin = "yellow",
                   )
                   )
                 ),
-        #---UI Content of Graph 7
+        #---UI Content of Graph 6
         tabItem(tabName = "number7",
                 fluidRow(
                   box(

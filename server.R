@@ -149,7 +149,7 @@ function(input, output) {
   output$plotE <- renderPlot({
     
     plotE <- ggplot(data=states.dat,aes(x=long.x, y = lat.x)) + 
-      geom_map(aes(group = group.x, map_id = region.x, fill=mean_totalprod.x), map = states) +
+      geom_map(aes_string(group = 'group.x', map_id = 'region.x', fill = input$mean_var), map = states) +
       coord_map(project="conic", lat0 = 30) +
       scale_fill_continuous(low="white", high="red", name ="mean_totalprod (lbs)") +
       labs(title = "Mean Total Production of Honey (lbs) by State (1998-2012)",
