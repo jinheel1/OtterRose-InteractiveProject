@@ -152,8 +152,7 @@ function(input, output) {
       geom_map(aes_string(group = 'group.x', map_id = 'region.x', fill = input$mean_var), map = states) +
       coord_map(project="conic", lat0 = 30) +
       scale_fill_continuous(low="white", high="red", name ="mean_totalprod (lbs)") +
-      labs(title = "Mean Total Production of Honey (lbs) by State (1998-2012)",
-           caption = "Source: Honey Production In The USA (1998 -2012)") +
+      labs(title = paste(input$mean_var, "by State (1998-2012)")) +
       theme_minimal() +
       theme(axis.ticks = element_blank(),
             axis.text.x = element_blank(),

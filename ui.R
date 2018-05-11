@@ -105,14 +105,13 @@ dashboardPage(skin = "yellow",
                   box(
                     #---STUFF GOES HERE---
                     plotOutput("plotE"),
-                    radioButtons(inputId = "mean_var", label = "choose mean_var", 
-                                 choices = c("mean_totalprod.x",
-                                             "mean_priceperlb.x",
-                                             "mean_numcol.x",
-                                             "mean_yieldpercol.x",
-                                             "mean_stocks.x",
-                                             "mean_priceperlb.x",
-                                             "mean_prodvalue.x")),
+                    radioButtons(inputId = "mean_var", label = "Choose a variable to view.", 
+                                 choices = c("Mean Total Production (lbs)" = "mean_totalprod.x",
+                                            "Mean Price per Pound ($/lb)"  = "mean_priceperlb.x",
+                                            "Mean Number of Colonies"  = "mean_numcol.x",
+                                            "Mean Yield per Colony (lbs)"  = "mean_yieldpercol.x",
+                                            "Mean Amount of Honey Held by Producers on Dec. 15th ($)" = "mean_stocks.x",
+                                            "Mean Production Value ($)"  = "mean_prodvalue.x")),
                     width = 12
                   )
                 )
