@@ -26,7 +26,7 @@ library(datasets)
 library(ggTimeSeries)
 
 honey_data <- read_csv("honeyproduction.csv")
-states.dat <- read_csv("states_data.csv")
+states.dat <- read_csv("D:/315pmd/OtterRose-InteractiveProject/states_data.csv")
 states <- map_data("state")
 #---DATA PARSING HAPPENS HERE IF YOU WANT IT TO AFFECT EVERY GRAPH---
 
@@ -48,6 +48,23 @@ function(input, output) {
   #   
   # })
   
+  output$plotlyA1 <- renderPlotly({
+    
+    honey_data_state <- honey_data[which(honey_data$state == input$state),]
+    
+    plotly1 <- ggplot(subset(honey_data, state%in%input$state), 
+                      aes(x = factor(year), y = totalprod / 100000, group = state, color = state)) +
+      geom_line(size = 2) +
+      #---Adjusting label orientation
+      theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+      labs(title = paste("Total Honey Production for US States"),
+           x = "Year", y = "Amount (in 100,000 lbs)",
+           color = "State(s)")
+    
+    ggplotly(plotly1)
+    
+  })
+  
   # output$plotlyA2 <- renderPlotly({
   #   
   #   honey_data_state2 <- honey_data[which(honey_data$state == input$state2),]
@@ -61,56 +78,17 @@ function(input, output) {
   #   
   # })
   
-  output$plotly1 <- renderPlotly({
-    
-    #honey_data_state <- honey_data[which(honey_data$state == input$state),]
-    
-    plotly1 <- ggplot(subset(honey_data, state%in%input$state), 
-                      aes(x = factor(year), y = totalprod / 100000, group = state, color = state)) +
-      geom_line(size = 1) +
-      #---Adjusting label orientation
-      theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-      labs(title = paste("Total Honey Production for US States"),
-           x = "Year", y = "Amount (in 100,000 lbs)",
-           color = "State(s)")
-    
-    ggplotly(plotly1)
-    
-  })
-  
-  
+
   #---Graph 2 (Jinhee Lee)
   
-  output$plotly2 <- renderPlotly({
-    
-    #honey_data_state2 <- honey_data[which(honey_data$state == input$state2),]
-    #honey_data_state2 <- honey_data_state2[which(honey_data$year == input$year2)]
-    
-    honey_data_totalsold <- honey_data %>%
-      group_by(state, totalprod, stocks) %>%
-      mutate(totalsold = totalprod - stocks) %>%
-      ungroup
-    
-    
-    plotly2 <- ggplot(subset(honey_data_totalsold, year%in%input$year2 & state%in%input$state2), 
-                      aes(x = state, y = totalsold / 100000,
-                          group = state, fill = state)) +
-      geom_bar(stat = "identity") +
-      #---Adjusting label orientation
-      #theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-      labs(title = paste("Amount of Honey Sold"),
-           subtitle = "*By Dec. 15th",
-           x = "State(s)", y = "Amount (in 100,000 lbs)",
-           fill = "State(s)")
-    
-    ggplotly(plotly2)
-    
+  output$plotB <- renderPlot({
+    plotB <- ggplot(honey_data, aes(x = factor(year), y = numcol)) +
+      geom_bar(stat = "identity")
+    return(plotB)
   })
-
   
   
   #---Graph 3
-  
   output$plotlyC <- renderPlotly({
     
     honey_data_state <- honey_data[which(honey_data$state == input$state),]
@@ -128,24 +106,20 @@ function(input, output) {
   
   foo <- input$variable
   
-  
-  
-  plotlyD <- ggplot(data = honey_data, aes_string(x = 'state',y = input$variable)) + 
+  plotlyD <- ggplot(data = honey_data, aes_string(x = 'state', y = input$variable)) + 
       geom_bar(stat = "identity") +
       theme_minimal()
     
-    ggplotly(plotlyD)
-    
+  ggplotly(plotlyD)
   })
   
   #---Graph 5 
-  
   output$plotE <- renderPlot({
     
     plotE <- ggplot(data=states.dat,aes(x=long.x, y = lat.x)) + 
-      geom_map(aes(group = group.x, map_id = region.x, fill=mean_totalprod.x), map = states) +
+      geom_map(aes_string(group = 'group.x', map_id = 'region.x', fill=input$mean_var), map = states) +
       coord_map(project="conic", lat0 = 30) +
-      scale_fill_continuous(low="white", high="red", name ="mean_totalprod (lbs)") +
+      scale_fill_continuous(low="white", high="red", name ="input$mean_var") +
       labs(title = "Mean Total Production of Honey (lbs) by State (1998-2012)",
            caption = "Source: Honey Production In The USA (1998 -2012)") +
       theme_minimal() +
@@ -158,7 +132,7 @@ function(input, output) {
             panel.grid.minor=element_blank(),
             panel.grid.major=element_blank())
     
-    return (plotE)
+    return(plotE)
   })
 
   #---Graph 6 
