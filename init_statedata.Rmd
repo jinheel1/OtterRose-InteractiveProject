@@ -26,15 +26,55 @@ library(rgeos)
 library("RColorBrewer")
 
 honey_data2 <- read_csv("honeyproduction.csv")
-honey_data2$mean_totalprod <- 0
 
-enterST <- function(x){
+#initialize new columns
+honey_data2$mean_totalprod <- 0
+honey_data2$mean_priceperlb <- 0
+honey_data2$mean_numcol <- 0
+honey_data2$mean_yieldpercol<- 0
+honey_data2$mean_stocks <- 0
+honey_data2$mean_prodvalue <- 0
+
+enterST <- function(x)
+{
   return (mean(honey_data2$totalprod[which(honey_data2$state == x)]));
 }
 
-for(i in 1:50){
+enterST2 <- function(x)
+{
+  return (mean(honey_data2$priceperlb[which(honey_data2$state == x)]));
+}
+
+enterST3 <- function(x)
+{
+  return (mean(honey_data2$numcol[which(honey_data2$state == x)]));
+}
+
+enterST4 <- function(x)
+{
+  return (mean(honey_data2$yieldpercol[which(honey_data2$state == x)]));
+}
+
+enterST5 <- function(x)
+{
+  return (mean(honey_data2$stocks[which(honey_data2$state == x)]));
+}
+
+enterST6 <- function(x)
+{
+  return (mean(honey_data2$prodvalue[which(honey_data2$state == x)]));
+}
+
+for(i in 1:50)
+{
   x = state.abb[i]
+  
   honey_data2$mean_totalprod[which(honey_data2$state == x)] <- enterST(x)
+  honey_data2$mean_priceperlb[which(honey_data2$state == x)] <- enterST2(x)
+  honey_data2$mean_numcol[which(honey_data2$state == x)] <- enterST3(x)
+  honey_data2$mean_yieldpercol[which(honey_data2$state == x)] <- enterST4(x)
+  honey_data2$mean_stocks[which(honey_data2$state == x)] <- enterST5(x)
+  honey_data2$mean_prodvalue[which(honey_data2$state == x)] <- enterST6(x)
 }
 
 state_tb <- as.data.frame(honey_data2)
