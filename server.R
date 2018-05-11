@@ -146,45 +146,64 @@ function(input, output) {
   #   
   # })
   
-  output$plotlyA1 <- renderPlotly({
+  output$plotly1 <- renderPlotly({
     
-    honey_data_state <- honey_data[which(honey_data$state == input$state),]
+    #honey_data_state <- honey_data[which(honey_data$state == input$state),]
     
     plotly1 <- ggplot(subset(honey_data, state%in%input$state), 
                       aes(x = factor(year), y = totalprod / 100000, group = state, color = state)) +
-      geom_line(size = 2) +
+      geom_line(size = 1) +
       #---Adjusting label orientation
       theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
       labs(title = paste("Total Honey Production for US States"),
            x = "Year", y = "Amount (in 100,000 lbs)",
-           color = "State(s)")
+           color = "State(s)") 
     
     ggplotly(plotly1)
     
   })
   
   # output$plotlyA2 <- renderPlotly({
-  #   
-  #   honey_data_state2 <- honey_data[which(honey_data$state == input$state2),]
-  #   
-  #   plotly1 <- ggplot(subset(honey_data, state%in%input$state2), 
+  # 
+  #   honey_data_state <- honey_data[which(honey_data$state == input$state),]
+  # 
+  #   plotly1 <- ggplot(subset(honey_data, state%in%input$state2),
   #                     aes(x = factor(year), y = numcol, group = state, color = state)) +
   #     geom_line(size = 2) +
   #     labs(x = "blah", y = "Numcol", title = paste("Number of Colonies for:"))
-  #   
+  # 
   #   ggplotly(plotly1)
-  #   
+  # 
   # })
   
   
   #---Graph 2 (Jinhee Lee)
   
-  output$plotB <- renderPlot({
-    plotB <- ggplot(honey_data, aes(x = factor(year), y = numcol)) +
-      geom_bar(stat = "identity")
-    return(plotB)
-  })
   
+  output$plotly2 <- renderPlot({
+    
+    #honey_data_state2 <- honey_data[which(honey_data$state == input$state2),]
+    #honey_data_state2 <- honey_data_state2[which(honey_data$year == input$year2)]
+    
+    honey_data_totalsold <- honey_data %>%
+      group_by(state, totalprod, stocks) %>%
+      mutate(totalsold = totalprod - stocks) %>%
+      ungroup
+    
+    
+    plotly2 <- ggplot(subset(honey_data_totalsold, state%in%input$state2), 
+                      aes(x = state, y = totalsold)) +
+      geom_bar(stat = "identity") +
+      #---Adjusting label orientation
+      #theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+      labs(title = paste("Amount of Honey Sold"),
+           subtitle = "*By Dec. 15th",
+           x = "State(s)", y = "Pounds (lbs)")
+    
+    ggplotly(plotly2)
+    
+  })
+
   
   #---Graph 3
   

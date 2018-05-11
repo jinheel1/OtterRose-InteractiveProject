@@ -3,15 +3,18 @@ library(shinydashboard)
 library(ggplot2)
 library(tidyverse)
 library(plotly)
+library(shinythemes)
 library(ggmap)
 
-dashboardPage(skin = "black",
+
+dashboardPage(skin = "yellow",
               
     dashboardHeader(title = "Otter Rose"),
     
     #---Naming the tabs
     dashboardSidebar(width="200px",
                      sidebarMenu(
+                       menuItem("Introduction", tabName = "intro", icon = icon("th")),
                        menuItem("Total Honey Production", tabName = "number1", icon = icon("th")),
                        menuItem("Graph 2", tabName = "number2", icon = icon("th")),
                        menuItem("Graph 3", tabName = "number3", icon = icon("th")),
@@ -25,18 +28,27 @@ dashboardPage(skin = "black",
     dashboardBody(
       tabItems(
         
+        tabItem(tabName = "intro",
+                fluidRow(
+                  box(
+                    background = "purple"
+                    )
+                  )
+                ),
+        
         #---UI Content of Graph 1
         tabItem(tabName = "number1",
                 fluidRow(
                   box(
-                    plotlyOutput("plotlyA1"), width = 12,
-                    selectInput(inputId = "state", label = "State",
+                    background = "purple",
+                    plotlyOutput("plotly1"), width = 12,
+                    selectInput(inputId = "state", label = "Click & Choose States to Compare...",
                                 choices = c("AL", "AZ", "AR", "CA", "CO", "FL", "GA", "HI", "ID", "IL",
                                            "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MI", "MN", "MS",
                                            "MO", "MT", "NE", "NV", "NJ", "NM", "NY", "NC", "ND", "OH",
                                            "OK", "OR", "PA", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
                                            "WV", "WI", "WY", "SC"),
-                                multiple = T, selected = "AL")
+                                multiple = T, selected = c("AL","AZ"))
                     )
                   )
                 ),
@@ -45,7 +57,19 @@ dashboardPage(skin = "black",
         tabItem(tabName = "number2",
                 fluidRow(
                   box(
-                    plotOutput("plotB")
+                    background = "purple",
+                    plotlyOutput("plotly2"), width = 12,
+                    selectInput(inputId = "state2", label = "Click & Choose States to Compare...",
+                                choices = c("AL", "AZ", "AR", "CA", "CO", "FL", "GA", "HI", "ID", "IL",
+                                            "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MI", "MN", "MS",
+                                            "MO", "MT", "NE", "NV", "NJ", "NM", "NY", "NC", "ND", "OH",
+                                            "OK", "OR", "PA", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
+                                            "WV", "WI", "WY", "SC"),
+                                multiple = T, selected = c("AL","AZ")),
+                    selectInput(inputId = "year2", label = "Choose a Year...",
+                                choices = c("1998", "1999", "2000", "2001", "2002", "2003", "2004",
+                                            "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"),
+                                selected = "2008")
                     )
                   )
                 ),
