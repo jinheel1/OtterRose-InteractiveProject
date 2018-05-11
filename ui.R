@@ -3,24 +3,23 @@ library(shinydashboard)
 library(ggplot2)
 library(tidyverse)
 library(plotly)
-library(shinythemes)
 library(ggmap)
 
-
-dashboardPage(skin = "yellow",
+dashboardPage(skin = "black",
               
     dashboardHeader(title = "Otter Rose"),
     
     #---Naming the tabs
     dashboardSidebar(width="200px",
                      sidebarMenu(
-                       menuItem("Introduction", tabName = "intro", icon = icon("th")),
                        menuItem("Total Honey Production", tabName = "number1", icon = icon("th")),
                        menuItem("Graph 2", tabName = "number2", icon = icon("th")),
                        menuItem("Graph 3", tabName = "number3", icon = icon("th")),
                        menuItem("Graph 4", tabName = "number4", icon = icon("th")),
                        menuItem("Graph 5", tabName = "number5", icon = icon("th")),
-                       menuItem("Graph 6", tabName = "number6", icon = icon("th"))
+                       menuItem("Graph 6", tabName = "number6", icon = icon("th")),
+                       menuItem("Graph 7", tabName = "number7", icon = icon("th")),
+                       menuItem("Graph 8", tabName = "number8", icon = icon("th"))
                        )
                      ),
     
@@ -28,27 +27,18 @@ dashboardPage(skin = "yellow",
     dashboardBody(
       tabItems(
         
-        tabItem(tabName = "intro",
-                fluidRow(
-                  box(
-                    background = "purple"
-                    )
-                  )
-                ),
-        
         #---UI Content of Graph 1
         tabItem(tabName = "number1",
                 fluidRow(
                   box(
-                    background = "purple",
-                    plotlyOutput("plotly1"), width = 12,
-                    selectInput(inputId = "state", label = "Click & Choose States to Compare...",
+                    plotlyOutput("plotlyA1"), width = 12,
+                    selectInput(inputId = "state", label = "State",
                                 choices = c("AL", "AZ", "AR", "CA", "CO", "FL", "GA", "HI", "ID", "IL",
                                            "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MI", "MN", "MS",
                                            "MO", "MT", "NE", "NV", "NJ", "NM", "NY", "NC", "ND", "OH",
                                            "OK", "OR", "PA", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
                                            "WV", "WI", "WY", "SC"),
-                                multiple = T, selected = c("AL","AZ"))
+                                multiple = T, selected = "AL")
                     )
                   )
                 ),
@@ -57,19 +47,7 @@ dashboardPage(skin = "yellow",
         tabItem(tabName = "number2",
                 fluidRow(
                   box(
-                    background = "purple",
-                    plotlyOutput("plotly2"), width = 12,
-                    selectInput(inputId = "state2", label = "Click & Choose States to Compare...",
-                                choices = c("AL", "AZ", "AR", "CA", "CO", "FL", "GA", "HI", "ID", "IL",
-                                            "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MI", "MN", "MS",
-                                            "MO", "MT", "NE", "NV", "NJ", "NM", "NY", "NC", "ND", "OH",
-                                            "OK", "OR", "PA", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
-                                            "WV", "WI", "WY", "SC"),
-                                multiple = T, selected = c("AL","AZ")),
-                    selectInput(inputId = "year2", label = "Choose a Year...",
-                                choices = c("1998", "1999", "2000", "2001", "2002", "2003", "2004",
-                                            "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"),
-                                selected = "2008")
+                    plotOutput("plotB")
                     )
                   )
                 ),
@@ -95,9 +73,11 @@ dashboardPage(skin = "yellow",
         tabItem(tabName = "number4",
                 fluidRow(
                   box(
-                    
+
                     #---STUFF GOES HERE---
-                    plotOutput("plotD", height = 800),
+                    plotlyOutput("plotlyD", height = 800),
+                    radioButtons("variable", "choose var", 
+                                 choices = c("totalprod", "priceperlb","numcol","yieldpercol","stocks","priceperlb","prodvalu")),
                     width = 12
                     
                     )
@@ -109,7 +89,7 @@ dashboardPage(skin = "yellow",
                 fluidRow(
                   box(
                     #---STUFF GOES HERE---
-                    plotOutput("plotE", height = 800),
+                    plotOutput("plotE"),
                     width = 12
                     )
                   )
@@ -119,10 +99,42 @@ dashboardPage(skin = "yellow",
         tabItem(tabName = "number6",
                 fluidRow(
                   box(
-                    #---STUFF GOES HERE---
-                    )
+                    plotlyOutput("plotly6"), width = 12,
+                    selectInput(inputId = "state2", label = "state2",
+                                choices = c("AL", "AZ", "AR", "CA", "CO", "FL", "GA", "HI", "ID", "IL",
+                                            "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MI", "MN", "MS",
+                                            "MO", "MT", "NE", "NV", "NJ", "NM", "NY", "NC", "ND", "OH",
+                                            "OK", "OR", "PA", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
+                                            "WV", "WI", "WY", "SC"),
+                                multiple = T, selected = "AL")
+                  )
+                  )
+                ),
+        #---UI Content of Graph 6
+        tabItem(tabName = "number7",
+                fluidRow(
+                  box(
+                    plotlyOutput("plotly7"), width = 12,
+                    selectInput(inputId = "state3", label = "state3",
+                                choices = c("AL", "AZ", "AR", "CA", "CO", "FL", "GA", "HI", "ID", "IL",
+                                            "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MI", "MN", "MS",
+                                            "MO", "MT", "NE", "NV", "NJ", "NM", "NY", "NC", "ND", "OH",
+                                            "OK", "OR", "PA", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
+                                            "WV", "WI", "WY", "SC"),
+                                multiple = T, selected = "AL")
                   )
                 )
+        ),
+        
+        #---UI Content of Graph 8
+        tabItem(tabName = "number8",
+                fluidRow(
+                  box(
+                    #---STUFF GOES HERE---
+                    plotlyOutput("plotly8")
+                  )
+                )
+        )
         )
       )
 )
